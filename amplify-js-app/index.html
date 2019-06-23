@@ -1,0 +1,145 @@
+<html lang="en">
+    <head>
+        <title>Project Codename</title>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+        <div class="container-fluid">
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-md-1">&nbsp;</div>
+                <div class="col-md-10">
+                    <ul class="nav nav-pills nav-fill" id="pills-tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="pills-create-tab" data-toggle="pill" href="#create-div" role="tab" aria-controls="pills-home" aria-selected="true">
+                                CREATE
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-search-tab" data-toggle="pill" href="#search-div" role="tab" aria-controls="pills-home" aria-selected="false">
+                                SEARCH
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div id="create-div" class="tab-pane fade active show" role="tabpanel" aria-labelledby="pills-create-tab">
+                            <h3>Create a new Video Metadata</h3>
+                            <div class="form-group">
+                                <label for="title">Title (required)</label>
+                                <input type="text" id="title" class="form-control form-control-sm" placeholder="Cat Video">
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Description (required)</label>
+                                <input type="text" id="description" class="form-control form-control-sm" placeholder="This is a funny cat video">
+                            </div>
+                            <div class="form-group">
+                                <label for="time">Datetime (required)</label>
+                                <input type="text" id="time" class="form-control form-control-sm" placeholder="Enter datetime in the format YYYY-MM-DDTHH:MM:SSZ">
+                            </div>
+                            <div class="form-group">
+                                <label for="duration">Duration (seconds, required)</label>
+                                <input type="text" id="duration" class="form-control form-control-sm" placeholder="280">
+                            </div>
+                            <div class="form-group">
+                                <label for="contains">Contains (comma-separated values, optional)</label>
+                                <input type="text" id="contains" class="form-control form-control-sm" placeholder="Dog, Cat, Fight">
+                            </div>
+                            <div class="form-group">
+                                <label for="category">Category (comma-separated values, optional)</label>
+                                <input type="text" id="category" class="form-control form-control-sm" placeholder="Funny, Pets">
+                            </div>
+                            <div class="form-group">
+                                <label for="folder">Folder (comma-separated values, optional)</label>
+                                <input type="text" id="folder" class="form-control form-control-sm" placeholder="Personal, Junk">
+                            </div>
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" value="" id="has-sound">
+                                <label for="has-sound" class="form-check-label">Has Sound?</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="framesize-width">Framesize Width (required)</label>
+                                <input type="text" id="framesize-width" class="form-control form-control-sm" placeholder="200">
+                            </div>
+                            <div class="form-group">
+                                <label for="framesize-height">Framesize Height (required)</label>
+                                <input type="text" id="framesize-height" class="form-control form-control-sm" placeholder="150">
+                            </div>
+                            <div class="form-group">
+                                <label for="framerate">Framerate (required)</label>
+                                <input type="text" id="framerate" class="form-control form-control-sm" placeholder="22.45">
+                            </div>
+                            <div class="form-group">
+                                <label for="format">Format (required)</label>
+                                <input type="text" id="format" class="form-control form-control-sm" placeholder="HD or SD">
+                            </div>
+                            <div class="form-group">
+                                <label for="latitude">Geolocation Latitude (optional)</label>
+                                <input type="text" id="latitude" class="form-control form-control-sm" placeholder="37.65">
+                            </div>
+                            <div class="form-group">
+                                <label for="longitude">Geolocation Longitude (optional)</label>
+                                <input type="text" id="longitude" class="form-control form-control-sm" placeholder="78.98">
+                            </div>
+                            <button type="button" id="save-btn" class="btn btn-primary">Save</button>
+                        </div>
+
+                        <div id="search-div" class="tab-pane fade" role="tabpanel" aria-labelledby="pills-search-div">
+                            <h3>Enter Search Query</h3>
+                            <div class="form-row">
+                                <div class="form-group col-md-11">
+                                    <input type="text" id="search-query" class="form-control form-control-lg" placeholder="See Query Examples">
+                                </div>
+                                <div class="form-group col-md-1">
+                                    <button type="button" id="search-btn" class="btn btn-primary btn-lg">Search</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    These search modifiers are supported: <code>id:</code>, <code>intitle:</code>,
+                                    <code>indescription:</code>, <code>time_lt</code>, <code>time_gte:</code>,
+                                    <code>created_lt</code>, <code>created_gte</code>,
+                                    <code>modified_lt</code>, <code>modified_gte</code>,
+                                    <code>accessed_lt</code>, <code>accessed_gte</code>,
+                                    <code>duration_lt</code>, <code>duration_gte</code>,
+                                    <code>has_sound</code>, <code>framerate_lt</code>, <code>framerate_gte</code>,
+                                    <code>framerate:</code>, <code>format:</code>, <code>contains:</code>,
+                                    <code>category:</code>, <code>folder:</code>, <code>width_lt:</code>,
+                                    <code>width_gte:</code>, <code>height_lt:</code>, <code>height_gte:</code>, and
+                                    <code>within:</code>.
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" style="margin-top: 5px;">
+                                    <strong>Example Queries: (only <code>&</code> queries are supported)</strong>
+                                    <ul>
+                                        <li><code>indescription: dog cat</code></li>
+                                        <li><code>indescription: dog cat & intitle: fighting</code></li>
+                                        <li><code>time_gte: 2019-01-01 & intitle: cat & contains: dog, friend & category: Lovable</code></li>
+                                        <li><code>within: (34.5572548, 56.7812974), (34.5572591, 56.7812991), (34.5572162, 56.7791126), (34.5622158, 56.7793124), (34.5621943, 56.7812638), (34.5572548, 56.7812974)</code></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" id="video-search-results">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-1">&nbsp;</div>
+            </div>
+        </div>
+
+        <script src="main.bundle.js"></script>
+
+    </body>
+</html>

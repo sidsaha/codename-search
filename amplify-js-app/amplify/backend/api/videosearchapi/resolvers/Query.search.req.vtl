@@ -1,0 +1,114 @@
+## Query.search.req.vtl
+## Objects of type VideoMetadata will be stored in /videometadata index
+
+#set( $indexPath = "/videometadata/doc/_search" )
+
+{
+    "version": "2017-02-28",
+    "operation": "GET",
+    "path": "$indexPath.toLowerCase()",
+    "params": {
+        "body": {
+            "query": {
+                "bool": {
+                    "must": [
+                        #if( !$util.isNull($ctx.args.params.id) )
+                        { "match": { "id": "$ctx.args.params.id" }},
+                        #end
+                        #if( !$util.isNull($ctx.args.params.intitle) )
+                        { "match": { "title": "$ctx.args.params.intitle" }},
+                        #end
+                        #if( !$util.isNull($ctx.args.params.indescription) )
+                        { "match": { "description": "$ctx.args.params.indescription" }},
+                        #end
+                        #if( !$util.isNull($ctx.args.params.time_lt) )
+                        { "range": { "time": { "lt": "$ctx.args.params.time_lt" }}},
+                        #end
+                        #if( !$util.isNull($ctx.args.params.time_gte) )
+                        { "range": { "time": { "gte": "$ctx.args.params.time_gte" }}},
+                        #end
+                        #if( !$util.isNull($ctx.args.params.created_lt) )
+                        { "range": { "created": { "lt": "$ctx.args.params.created_lt" }}},
+                        #end
+                        #if( !$util.isNull($ctx.args.params.created_gte) )
+                        { "range": { "created": { "gte": "$ctx.args.params.created_gte" }}},
+                        #end
+                        #if( !$util.isNull($ctx.args.params.modified_lt) )
+                        { "range": { "modified": { "lt": "$ctx.args.params.modified_lt" }}},
+                        #end
+                        #if( !$util.isNull($ctx.args.params.modified_gte) )
+                        { "range": { "modified": { "gte": "$ctx.args.params.modified_gte" }}},
+                        #end
+                        #if( !$util.isNull($ctx.args.params.accessed_lt) )
+                        { "range": { "accessed": { "lt": "$ctx.args.params.accessed_lt" }}},
+                        #end
+                        #if( !$util.isNull($ctx.args.params.accessed_gte) )
+                        { "range": { "accessed": { "gte": "$ctx.args.params.accessed_gte" }}},
+                        #end
+                        #if( !$util.isNull($ctx.args.params.duration_lt) )
+                        { "range": { "duration": { "lt": $ctx.args.params.duration_lt }}},
+                        #end
+                        #if( !$util.isNull($ctx.args.params.duration_gte) )
+                        { "range": { "duration": { "gte": $ctx.args.params.duration_gte }}},
+                        #end
+                        #if( !$util.isNull($ctx.args.params.has_sound) )
+                        { "match": { "hasSound": $ctx.args.params.has_sound }},
+                        #end
+                        #if( !$util.isNull($ctx.args.params.framerate_lt) )
+                        { "range": { "framerate": { "lt": $ctx.args.params.framerate_lt }}},
+                        #end
+                        #if( !$util.isNull($ctx.args.params.framerate_gte) )
+                        { "range": { "framerate": { "gte": $ctx.args.params.framerate_gte }}},
+                        #end
+                        #if( !$util.isNull($ctx.args.params.framerate) )
+                        { "match": { "framerate": $ctx.args.params.framerate }},
+                        #end
+                        #if( !$util.isNull($ctx.args.params.format) )
+                        { "match": { "format": "$ctx.args.params.format" }},
+                        #end
+                        #if( !$util.isNull($ctx.args.params.contains) )
+                        #foreach( $containsKeyword in $ctx.args.params.contains )
+                        { "match": { "contains": "$containsKeyword" }},
+                        #end
+                        #end
+                        #if( !$util.isNull($ctx.args.params.category) )
+                        #foreach( $categoryKeyword in $ctx.args.params.category )
+                        { "match": { "category": "$categoryKeyword" }},
+                        #end
+                        #end
+                        #if( !$util.isNull($ctx.args.params.folder) )
+                        #foreach( $folderKeyword in $ctx.args.params.folder )
+                        { "match": { "folder": "$folderKeyword" }},
+                        #end
+                        #end
+                        #if( !$util.isNull($ctx.args.params.width_lt) )
+                        { "range": { "framesize.width": { "lt": $ctx.args.params.width_lt }}},
+                        #end
+                        #if( !$util.isNull($ctx.args.params.width_gte) )
+                        { "range": { "framesize.width": { "gte": $ctx.args.params.width_gte }}},
+                        #end
+                        #if( !$util.isNull($ctx.args.params.height_lt) )
+                        { "range": { "framesize.height": { "lt": $ctx.args.params.height_lt }}},
+                        #end
+                        #if( !$util.isNull($ctx.args.params.height_gte) )
+                        { "range": { "framesize.height": { "gte": $ctx.args.params.height_gte }}},
+                        #end
+                    ],
+                    "filter": [
+                    #if( !$util.isNull($ctx.args.params.within) )
+                        { "geo_polygon": {
+                            "geolocation": {
+                                "points": [
+                                #foreach( $point in $ctx.args.params.within.polygon_points )
+                                { "lat": $point.lat, "lon": $point.lon },
+                                #end
+                                ]
+                            }
+                        }},
+                    #end
+                    ]
+                }
+            }
+        }
+    }
+}

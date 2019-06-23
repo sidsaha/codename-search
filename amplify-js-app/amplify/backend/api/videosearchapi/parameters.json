@@ -1,0 +1,4 @@
+{
+    "AppSyncApiName": "videosearchapi",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST"
+}

@@ -1,0 +1,80 @@
+type VideoMetadata @model @searchable {
+	id: ID!,
+	title: String!,
+	description: String!,
+	time: AWSDateTime!,
+	created: AWSDateTime!,
+	modified: AWSDateTime!,
+	accessed: AWSDateTime!,
+	duration: Int!,
+	contains: [String],
+	category: [String],
+	folder: [String],
+	geolocation: Geolocation,
+	hasSound: Boolean!,
+	framesize: FrameSize!,
+	framerate: Float!,
+	format: String!
+}
+
+type Geolocation {
+	lat: Float!,
+	lon: Float!
+}
+
+type FrameSize {
+	width: Int!,
+	height: Int!
+}
+
+input GeolocationInput {
+	lat: Float!,
+	lon: Float!
+}
+
+input WithinInput {
+	# to query points that lie within a polygon bounded by the given geo_points
+	polygon_points: [GeolocationInput]
+}
+
+input SearchParams {
+	# Parameters for searching in ES
+	id: String,
+	intitle: String,
+	indescription: String,
+	time_lt: AWSDateTime,
+	time_gte: AWSDateTime,
+	created_lt: AWSDateTime,
+	created_gte: AWSDateTime,
+	modified_lt: AWSDateTime,
+	modified_gte: AWSDateTime,
+	accessed_lt: AWSDateTime,
+	accessed_gte: AWSDateTime,
+	duration_lt: Int,
+	duration_gte: Int,
+	has_sound: Boolean,
+	framerate_lt: Float,
+	framerate_gte: Float,
+	framerate: Float,
+	format: String,
+	contains: [String],
+	category: [String],
+	folder: [String],
+	width_lt: Int,
+	width_gte: Int,
+	height_lt: Int,
+	height_gte: Int,
+	within: WithinInput
+}
+
+type SearchResults {
+	# Response for search
+	items: [VideoMetadata],
+	nextToken: String,
+	total: Int
+}
+
+type Query {
+	# Custom Query
+	search(params: SearchParams): SearchResults
+}
